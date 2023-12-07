@@ -6,13 +6,20 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Signup extends JFrame {
+public class Signup extends JFrame implements ActionListener {
+
+    JButton create, back;
+    JTextField firstname, lastname, email, password, contact, answertext;
+    Choice security;
 
     Signup() {
         setBounds(250, 150, 1200, 600);
@@ -41,7 +48,7 @@ public class Signup extends JFrame {
         lblfname.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(lblfname);
 
-        JTextField firstname = new JTextField();
+        firstname = new JTextField();
         firstname.setBounds(60, 60, 230, 30);
         firstname.setBorder(BorderFactory.createEmptyBorder());
         p2.add(firstname);
@@ -52,7 +59,7 @@ public class Signup extends JFrame {
         lbllname.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(lbllname);
 
-        JTextField lastname = new JTextField();
+        lastname = new JTextField();
         lastname.setBounds(330, 60, 230, 30);
         lastname.setBorder(BorderFactory.createEmptyBorder());
         p2.add(lastname);
@@ -63,7 +70,7 @@ public class Signup extends JFrame {
         lbluseremail.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(lbluseremail);
 
-        JTextField email = new JTextField();
+        email = new JTextField();
         email.setBounds(60, 130, 500, 30);
         email.setBorder(BorderFactory.createEmptyBorder());
         p2.add(email);
@@ -74,66 +81,96 @@ public class Signup extends JFrame {
         textpassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(textpassword);
 
-        JTextField password = new JTextField();
+        password = new JTextField();
         password.setBounds(60, 210, 500, 30);
         password.setBorder(BorderFactory.createEmptyBorder());
         p2.add(password);
-        
+
         // Contact Number
         JLabel textcontactno = new JLabel("Contact Number:");
         textcontactno.setBounds(60, 260, 200, 25);
         textcontactno.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(textcontactno);
 
-        JTextField contact = new JTextField();
+        contact = new JTextField();
         contact.setBounds(60, 290, 500, 30);
         contact.setBorder(BorderFactory.createEmptyBorder());
         p2.add(contact);
-        
+
         // S Question
         JLabel squestion = new JLabel("Security Question:");
         squestion.setBounds(60, 340, 200, 25);
         squestion.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(squestion);
 
-        Choice security = new Choice();
+        security = new Choice();
         security.add("Your Fav Character Name");
         security.add("Your Fav Color");
         security.add("Your Lucky Number");
         security.add("What is your Fav place to Visit?");
         security.setBounds(60, 370, 200, 30);
         p2.add(security);
-        
+
         // Answer
-        JLabel answer = new JLabel("Contact Number:");
+        JLabel answer = new JLabel("Answer:");
         answer.setBounds(300, 340, 200, 25);
         answer.setFont(new Font("Times New Roman", Font.BOLD, 20));
         p2.add(answer);
 
-        JTextField answertext = new JTextField();
+        answertext = new JTextField();
         answertext.setBounds(300, 370, 265, 30);
         answertext.setBorder(BorderFactory.createEmptyBorder());
         p2.add(answertext);
-        
+
         //Button Create Account 
-        JButton create = new JButton("Create An Account");
-        create.setBackground(new Color(0,134,0));
+        create = new JButton("Create An Account");
+        create.setBackground(new Color(0, 134, 0));
         create.setForeground(Color.WHITE);
         create.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-        create.setBounds(200, 420,250,30);
+        create.setBounds(200, 420, 250, 30);
+        create.addActionListener(this);
         p2.add(create);
-        
+
         //Button Back
-        JButton back = new JButton("Back");
-        back.setBackground(new Color(205,0,0));
+        back = new JButton("Back");
+        back.setBackground(new Color(205, 0, 0));
         back.setForeground(Color.WHITE);
         back.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-        back.setBounds(275, 480,100,30);
+        back.setBounds(275, 480, 100, 30);
+        back.addActionListener(this);
         p2.add(back);
-        
-        
 
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == create) {
+            String fname = firstname.getText();
+            String lname = lastname.getText();
+            String email = this.email.getText();
+            String password = this.password.getText();
+            String contact = this.contact.getText();
+            String squestion = security.getSelectedItem();
+            String answer = answertext.getText();
+
+            String query = "INSERT INTO `tourism_management_system`.`user` (fname, lname, email, password, contact, squestion, answer) VALUES('" + fname + "','" + lname + "','" + email
+                    + "','" + password + "','" + contact + "','" + squestion + "','" + answer + "')";
+
+            try {
+                Conn c = new Conn();
+                c.s.executeUpdate(query);
+                
+                JOptionPane.showMessageDialog(null, "Account Create Successfully");
+                
+                setVisible(false);
+                new Login();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (ae.getSource() == back) {
+            setVisible(false);
+            new Login();
+        }
     }
 
     public static void main(String[] args) {
