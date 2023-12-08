@@ -3,6 +3,8 @@ package tourism_management_system;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener{
+    
+    JButton login, signup, forgotPassword;
 
     Login() {
         setSize(1000, 500);
@@ -60,37 +64,54 @@ public class Login extends JFrame {
         p2.add(password);
 
         // Button Login
-        JButton login = new JButton("Login");
+        login = new JButton("Login");
         login.setFont(new Font("Times New Roman", Font.PLAIN, 25));
         login.setBounds(200, 230, 200, 50);
         login.setBackground(new Color(0, 0, 109));
         login.setForeground(Color.WHITE);
         login.setBorder(new LineBorder(new Color(62, 64, 214)));
+        login.addActionListener(this);
         p2.add(login);
 
         // Sign Up
-        JButton signup = new JButton("Sign Up");
+        signup= new JButton("Sign Up");
         signup.setFont(new Font("Times New Roman", Font.PLAIN, 25));
         signup.setBounds(200, 300, 200, 50);
         signup.setBackground(new Color(0, 171, 48));
         signup.setForeground(Color.WHITE);
         signup.setBorder(new LineBorder(new Color(0, 236, 8)));
+        signup.addActionListener(this);
         p2.add(signup);
 
         // Forgot Password
-        JButton forgotPassword = new JButton("Forgot Password");
+        forgotPassword = new JButton("Forgot Password");
         forgotPassword.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         forgotPassword.setBounds(50, 180, 150, 30);
         forgotPassword.setForeground(new Color(255, 0, 0));
         forgotPassword.setBorderPainted(false);
         forgotPassword.setContentAreaFilled(false);
+        forgotPassword.addActionListener(this);
         p2.add(forgotPassword);
 
         setVisible(true);
+    }
+    
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource() == login) {
+            
+        }else if (ae.getSource() == signup){
+            setVisible(false);
+            new Signup();
+        }else{
+            setVisible(false);
+            new ForgotPassword();
+        }
     }
 
 
     public static void main(String[] args) {
         new Login();
     }
+
+    
 }
