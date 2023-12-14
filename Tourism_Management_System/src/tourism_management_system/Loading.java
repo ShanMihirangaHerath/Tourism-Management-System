@@ -10,6 +10,8 @@ public class Loading extends JFrame implements Runnable {
 
     Thread t;
     JProgressBar bar;
+    String emailtext;
+
 
     public void run() {
         try {
@@ -20,7 +22,7 @@ public class Loading extends JFrame implements Runnable {
                     bar.setValue(bar.getValue() + 1);
                 } else {
                     setVisible(false);
-                    //new Class object
+                    new Dashboard(emailtext);
                 }
                 Thread.sleep(50);
             }
@@ -29,7 +31,8 @@ public class Loading extends JFrame implements Runnable {
         }
     }
 
-    Loading() {
+    public Loading(String emailtext) {
+        this.emailtext = emailtext;
         t = new Thread(this);
 
         setBounds(500, 200, 650, 400);
@@ -64,7 +67,7 @@ public class Loading extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) {
-        new Loading();
+        new Loading("").setVisible(true);
     }
 
     

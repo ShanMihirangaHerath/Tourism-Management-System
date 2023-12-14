@@ -21,7 +21,7 @@ public class Login extends JFrame implements ActionListener {
     JButton login, signup, forgotPassword;
     JTextField email, password;
 
-    Login() {
+    public Login() {
         setSize(1000, 500);
         setLocation(250, 150);
         setTitle("Login");
@@ -109,10 +109,10 @@ public class Login extends JFrame implements ActionListener {
 
                 Conn c = new Conn();
                 ResultSet rs = c.s.executeQuery(query);
-                if(rs.next()){
+                if (rs.next()) {
                     setVisible(false);
-                    new Loading();
-                }else{
+                    new Loading(emailtext);
+                } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Email Or Password.");
                 }
             } catch (Exception e) {
