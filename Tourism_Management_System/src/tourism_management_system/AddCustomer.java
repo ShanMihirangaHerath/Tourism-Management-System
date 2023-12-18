@@ -163,7 +163,7 @@ public class AddCustomer extends JFrame implements ActionListener {
             String address = textfieldaddress.getText();
             String username = textfieldusername.getText();
 
-            String query = "INSERT INTO `tourism_management_system`.`customer` (fname, lname, email, user_name, id, number, gender, country, address) VALUES ('" + f_name + "', '" + l_name + "', '" + emil + "', '" + id + "', '" + number + "', '" + gender + "', '" + country + "', '" + address + "', '" + username + "')";
+            String query = "INSERT INTO `tourism_management_system`.`customer` (fname, lname, email, id, number, gender, country, address, user_name) VALUES ('" + f_name + "', '" + l_name + "', '" + emil + "', '" + id + "', '" + number + "', '" + gender + "', '" + country + "', '" + address + "', '" + username + "')";
 
             try {
                 Conn c = new Conn();

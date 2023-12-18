@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class Dashboard extends JFrame implements ActionListener {
 
-    JButton addPersonalDetails;
+    JButton addPersonalDetails, viewPersonalDetails;
 
     String emaemailtext;
 
@@ -66,7 +66,7 @@ public class Dashboard extends JFrame implements ActionListener {
         updatePersonalDetails.setMargin(new Insets(0, 0, 0, 30));
         p2.add(updatePersonalDetails);
 
-        JButton viewPersonalDetails = new JButton("View Details");
+        viewPersonalDetails = new JButton("View Details");
         viewPersonalDetails.setBounds(0, 80, 400, 40);
         viewPersonalDetails.setBackground(new Color(0, 78, 161));
         viewPersonalDetails.setForeground(Color.WHITE);
@@ -197,6 +197,8 @@ public class Dashboard extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addPersonalDetails) {
             new AddCustomer(emaemailtext);
+        }else if (ae.getSource() == viewPersonalDetails) {
+            new ViewCustomer(emaemailtext);
         }
     }
 
